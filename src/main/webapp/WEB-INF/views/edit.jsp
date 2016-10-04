@@ -9,11 +9,12 @@
 <title>Spring MVC | Agregar</title>
 </head>
 <body>
-	<h2>Nuevo trabajar</h2>
-	<form:form action="agregar" method="post">
-		<input type="text" name="nombres" placeholder="Nombre" />  <br> <br>
-		<input type="text" name="apellidos" placeholder="Apellidos"/> </br> <br>
-		<input type="text" name="edad" placeholder="Edad"/> </br> <br>
+	<h2>Modificar un trabajadores</h2>
+	<form:form action="edith" method="post">
+		<input type="hidden" name="id" value="${model.id }" />
+		<input type="text" name="nombres" placeholder="Nombre" value="${model.nombres }"/>  <br> <br>
+		<input type="text" name="apellidos" placeholder="Apellidos" value="${model.apellidos }"/> </br> <br>
+		<input type="text" name="edad" placeholder="Edad" value="${model.edad }"/> </br> <br>
 		Cargo:
 		<select name="selectPosition">
 			<c:forEach items="${list}" var="list">

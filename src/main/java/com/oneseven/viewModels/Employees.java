@@ -29,7 +29,7 @@ public class Employees {
 		ResultSet resultSet = null;
 		ArrayList<Employee> list = new ArrayList<Employee>();
 		try {
-			conn = ConnectionMysql.Instance().ConnectMysql();
+			conn = ConnectionMysql.Instance().getConnection();
 			callableStatement = conn.prepareCall("SELECT t.id,nombres,apellidos,edad,c.nombrecargo FROM trabajador t INNER JOIN cargo c ON t.id_cargo = c.id;");
 			resultSet = callableStatement.executeQuery();
 			while (resultSet.next()) {
@@ -56,27 +56,84 @@ public class Employees {
 		}
 		return list;
 	}
-	public boolean InsertEmployee() throws Exception{
+	public boolean InsertEmployee(Employee e) throws Exception{
 		Connection conn = null;
-		CallableStatement callableStatement = null;
-		Employee e = null;
+		CallableStatement statement = null;
 		boolean result = false;
 		try {
-			conn = ConnectionMysql.Instance().ConnectMysql();
-			callableStatement = conn.prepareCall("INSERT INTO trabajador(nombres,apellidos,edad,id_cargo) VALUES (?,?,?,?)");
-			e = new Employee();
-			callableStatement.setString(1, e.getNombres());
-			callableStatement.setString(2, e.getApellidos());
-			callableStatement.setInt(3, e.getEdad());
-			callableStatement.setInt(4, e.getCargo().getId());
-			result = callableStatement.execute();
+			conn = ConnectionMysql.Instance().getConnection();
+			statement = conn.prepareCall("INSERT INTO trabajador(nombres,apellidos,edad,id_cargo) VALUES (?,?,?,?)");
+			statement.setString(1, e.getNombres());
+			statement.setString(2, e.getApellidos());
+			statement.setInt(3, e.getEdad());
+			statement.setInt(4, e.getCargo().getId());
+			result = !statement.execute();
 		} catch (Exception ex) {
 			throw ex;
 		} finally {
 			conn.close();
-			callableStatement.close();
+			statement.close();
 		}
 		
 		return result;
+	}
+	public boolean deleteEmployee(int id) throws Exception{
+		Connection conn = null;
+		CallableStatement statement = null;
+		boolean result = false;
+		try {
+			conn = ConnectionMysql.Instance().getConnection();
+			statement = conn.prepareCall("DELETE FROM trabajador WHERE id = ?");
+			statement.setInt(1, id);
+			result = !statement.execute();
+		} catch (Exception ex) {
+			throw ex;
+		} finally {
+			conn.close();
+			statement.close();
+		}
+		return result;
+	}
+	public boolean EditEmployee(Employee e) throws Exception{
+		Connection conn = null;
+		CallableStatement statement = null;
+		boolean result = false;
+		try {
+			conn = ConnectionMysql.Instance().getConnection();
+			statement = conn.prepareCall("UPDATE trabajador SET nombres=?,apellidos=?,edad=?, id_cargo = ? WHERE id = ?");
+			statement.setString(1, e.getNombres());
+			statement.setString(2, e.getApellidos());
+			statement.setInt(3, e.getEdad());
+			statement.setInt(4, e.getCargo().getId());
+			statement.setInt(5, e.getId());
+			result = !statement.execute();
+		} catch (Exception ex) {
+			throw ex;
+		} finally {
+			conn.close();
+			statement.close();
+		}
+		
+		return result;
+	}
+	public Employee SearchEmployee(int id) throws Exception{
+		Employee e = null;
+		try {
+			ArrayList<Employee> list = listEmployee();
+			for (int i = 0; i < list.size(); i++) {
+				if (list.get(i).getId() == id) {
+					e = new Employee();
+					e.setId(id);
+					e.setNombres(list.get(i).getNombres());
+					e.setApellidos(list.get(i).getApellidos());
+					e.setEdad(list.get(i).getEdad());
+					
+					break;
+				}
+			}
+		} catch (Exception ex) {
+			throw ex;
+		}
+		return e;
 	}
 }

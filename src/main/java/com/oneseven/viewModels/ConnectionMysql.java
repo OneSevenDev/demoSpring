@@ -21,7 +21,7 @@ public class ConnectionMysql {
 		return _Instance;
 	}
 
-	public Connection ConnectMysql() throws Exception {
+	public Connection getConnection() throws Exception {
 		Connection con = null;
 		try {
 			String url = "jdbc:mysql://127.0.0.1/empresa";

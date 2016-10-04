@@ -7,7 +7,7 @@
 <title>Spring MVC | Inicio</title>
 </head>
 <body>
-	<h1>Lista de Alumnos</h1>
+	<h1>Lista de trabajadores</h1>
 	<a href="${pageContext.request.contextPath}/agregar">Agregar alumno</a>
 	<table>
 		<thead>
@@ -17,6 +17,8 @@
 				<th>APELLIDOS</th>
 				<th>EDAD</th>
 				<th>CARGO</th>
+				<th>EDITAR</th>
+				<th>ELIMINAR</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -27,6 +29,9 @@
 					<th><c:out value="${list.apellidos}"/></th>
 					<th><c:out value="${list.edad}"/></th>
 					<th><c:out value="${list.cargo.nombrecargo}"/></th>
+					<th><a href="${pageContext.request.contextPath}/editar?id=${list.id}">Editar</a></th>
+					<th><a href="${pageContext.request.contextPath}/eliminar?id=${list.id}"
+						onclick="return confirm('¿Esta seguro de eliminar?')">Eliminar</a></th>
 				</tr>
 			</c:forEach>
 		</tbody>
