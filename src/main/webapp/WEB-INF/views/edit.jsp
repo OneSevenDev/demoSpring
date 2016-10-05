@@ -6,22 +6,20 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Spring MVC | Agregar</title>
+<title>Spring MVC | Editar</title>
 </head>
 <body>
 	<h2>Modificar un trabajadores</h2>
-	<form:form action="edith" method="post">
+	<form:form action="editar" method="post">
 		<input type="hidden" name="id" value="${model.id }" />
 		<input type="text" name="nombres" placeholder="Nombre" value="${model.nombres }"/>  <br> <br>
 		<input type="text" name="apellidos" placeholder="Apellidos" value="${model.apellidos }"/> </br> <br>
 		<input type="text" name="edad" placeholder="Edad" value="${model.edad }"/> </br> <br>
 		Cargo:
 		<select name="selectPosition">
-			<c:forEach items="${list}" var="list">
-				<option value="${list.id }"> ${list.nombrecargo }</option>
-			</c:forEach>
+			<option value="${cargo.id }"> ${cargo.nombrecargo }</option>
 		</select> </br></br>
-		<input type="submit" name="send" value="Agregar"/>
+		<input type="submit" name="send" value="Actualizar"/>
 	</form:form>
 </body>
 </html>

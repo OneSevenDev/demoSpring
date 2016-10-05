@@ -30,7 +30,8 @@ public class Employees {
 		ArrayList<Employee> list = new ArrayList<Employee>();
 		try {
 			conn = ConnectionMysql.Instance().getConnection();
-			callableStatement = conn.prepareCall("SELECT t.id,nombres,apellidos,edad,c.nombrecargo FROM trabajador t INNER JOIN cargo c ON t.id_cargo = c.id;");
+			callableStatement = conn.prepareCall(
+					"SELECT t.id,nombres,apellidos,edad,c.id,c.nombrecargo FROM trabajador t INNER JOIN cargo c ON t.id_cargo = c.id;");
 			resultSet = callableStatement.executeQuery();
 			while (resultSet.next()) {
 				e = new Employee();
@@ -42,6 +43,7 @@ public class Employees {
 				// Se ingresa el nombre del cargo a la entidad de Position para
 				// lograr insertarlos dentro de la entidad Employee
 				p = new Position();
+				p.setId(resultSet.getInt("c.id"));
 				p.setNombrecargo(resultSet.getString("nombrecargo"));
 				e.setCargo(p);
 
@@ -56,7 +58,8 @@ public class Employees {
 		}
 		return list;
 	}
-	public boolean InsertEmployee(Employee e) throws Exception{
+
+	public boolean InsertEmployee(Employee e) throws Exception {
 		Connection conn = null;
 		CallableStatement statement = null;
 		boolean result = false;
@@ -74,10 +77,11 @@ public class Employees {
 			conn.close();
 			statement.close();
 		}
-		
+
 		return result;
 	}
-	public boolean deleteEmployee(int id) throws Exception{
+
+	public boolean deleteEmployee(int id) throws Exception {
 		Connection conn = null;
 		CallableStatement statement = null;
 		boolean result = false;
@@ -94,13 +98,15 @@ public class Employees {
 		}
 		return result;
 	}
-	public boolean EditEmployee(Employee e) throws Exception{
+
+	public boolean EditEmployee(Employee e) throws Exception {
 		Connection conn = null;
 		CallableStatement statement = null;
 		boolean result = false;
 		try {
 			conn = ConnectionMysql.Instance().getConnection();
-			statement = conn.prepareCall("UPDATE trabajador SET nombres=?,apellidos=?,edad=?, id_cargo = ? WHERE id = ?");
+			statement = conn
+					.prepareCall("UPDATE trabajador SET nombres=?,apellidos=?,edad=?, id_cargo = ? WHERE id = ?");
 			statement.setString(1, e.getNombres());
 			statement.setString(2, e.getApellidos());
 			statement.setInt(3, e.getEdad());
@@ -113,26 +119,45 @@ public class Employees {
 			conn.close();
 			statement.close();
 		}
-		
+
 		return result;
 	}
-	public Employee SearchEmployee(int id) throws Exception{
+
+	public Employee SearchEmployee(int id) throws Exception {
+		Connection conn = null;
 		Employee e = null;
+		Position p = null;
+		CallableStatement callableStatement = null;
+		ResultSet resultSet = null;
 		try {
-			ArrayList<Employee> list = listEmployee();
-			for (int i = 0; i < list.size(); i++) {
-				if (list.get(i).getId() == id) {
-					e = new Employee();
-					e.setId(id);
-					e.setNombres(list.get(i).getNombres());
-					e.setApellidos(list.get(i).getApellidos());
-					e.setEdad(list.get(i).getEdad());
-					
-					break;
-				}
+			conn = ConnectionMysql.Instance().getConnection();
+			//Enviando Consulta
+			callableStatement = conn.prepareCall(
+							"SELECT t.id,nombres,apellidos,edad,c.id,c.nombrecargo FROM trabajador t INNER JOIN cargo c ON t.id_cargo = c.id WHERE t.id = ?"
+					);
+			callableStatement.setInt(1, id);
+			resultSet = callableStatement.executeQuery();
+
+			while (resultSet.next()) {
+				e = new Employee();
+				e.setId(resultSet.getInt("t.id"));
+				e.setNombres(resultSet.getString("nombres"));
+				e.setApellidos(resultSet.getString("apellidos"));
+				e.setEdad(resultSet.getInt("edad"));
+
+				// Se ingresa el nombre del cargo a la entidad de Position para
+				// lograr insertarlos dentro de la entidad Employee
+				p = new Position();
+				p.setId(resultSet.getInt("c.id"));
+				p.setNombrecargo(resultSet.getString("nombrecargo"));
+				e.setCargo(p);
 			}
 		} catch (Exception ex) {
 			throw ex;
+		} finally {
+			conn.close();
+			callableStatement.close();
+			resultSet.close();
 		}
 		return e;
 	}

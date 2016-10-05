@@ -32,4 +32,5 @@ DELIMITER ;
 CALL spListarTrabajadores();
 SELECT id, nombrecargo FROM cargo ORDER BY nombrecargo;
 DELETE FROM trabajador WHERE id = 4;
-UPDATE trabajador SET nombres='marita',apellidos='lujan',edad=18, id_cargo = 3 WHERE id = 7
+UPDATE trabajador SET nombres='marita',apellidos='lujan',edad=18, id_cargo = 3 WHERE id = 7;
+SELECT t.id,nombres,apellidos,edad,c.id,c.nombrecargo FROM trabajador t INNER JOIN cargo c ON t.id_cargo = c.id WHERE t.id = 9;

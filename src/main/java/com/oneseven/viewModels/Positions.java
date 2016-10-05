@@ -41,4 +41,24 @@ public class Positions {
 		}
 		return list;
 	}
+	public Position backPosition(int id) throws Exception {
+		CallableStatement statement = null;
+		ResultSet resultSet = null;
+		Connection connection = null;
+		Position p = null;
+		try {
+			connection = ConnectionMysql.Instance().getConnection();
+			statement = connection.prepareCall("SELECT id, nombrecargo FROM cargo WHERE id = ? ORDER BY nombrecargo");
+			statement.setInt(1, id);
+			resultSet = statement.executeQuery();
+			while (resultSet.next()) {
+				p = new Position();
+				p.setId(resultSet.getInt("id"));
+				p.setNombrecargo(resultSet.getString("nombrecargo"));
+			}
+		} catch (Exception ex) {
+			throw ex;
+		}
+		return p;
+	}
 }

@@ -99,10 +99,33 @@ public class HomeController {
 		try {
 			int id = Integer.parseInt(request.getParameter("id"));
 			Employee e = Employees.Instance().SearchEmployee(id);
-			ArrayList<Position> list = Positions.Instance().listPosition();
+			Position p = Positions.Instance().backPosition(e.getCargo().getId());
 			view = new ModelAndView("edit");
 			view.addObject("model", e);
-			view.addObject("list", list);
+			view.addObject("cargo", p);
+		} catch (Exception ex) {
+			view = new ModelAndView("404");
+			ex.printStackTrace();
+		}
+		return view;
+	}
+	
+	@RequestMapping(value="/editar" ,method = RequestMethod.POST)
+	public ModelAndView Editar(@ModelAttribute("SpringWeb") Employee e, HttpServletRequest request){
+		ModelAndView view = null;
+		try {
+			int id = Integer.parseInt(request.getParameter("selectPosition"));
+			Position p = new Position();
+			p.setId(id);
+			e.setCargo(p);
+			Boolean var = Employees.Instance().EditEmployee(e);
+			if (var) {
+				ArrayList<Employee> list = Employees.Instance().listEmployee();
+				view = new ModelAndView("home");
+				view.addObject("list",list);
+			} else {
+				view = new ModelAndView("error");
+			}
 		} catch (Exception ex) {
 			view = new ModelAndView("404");
 			ex.printStackTrace();
