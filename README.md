@@ -16,18 +16,18 @@ link: [Script de la base de datos](https://github.com/OneSevenDev/demoSpring/blo
 
 ** Imagen demostrativa de CREATE **
 
-![Imagen de muestra, crear trabajador en spring](https://www.dropbox.com/s/uh6e4zjdvlhpbzu/create.jpg?dl=0)
+![Imagen de muestra, crear trabajador en spring](https://raw.githubusercontent.com/OneSevenDev/demoSpring/master/images/create.jpg)
 
 ** Imagen demostrativa de READ **
 
-![Imagen de muestra, crear trabajador en spring](https://www.dropbox.com/s/3i4eu9cgya1zm04/read.jpg?dl=0)
+![Imagen de muestra, crear trabajador en spring](https://raw.githubusercontent.com/OneSevenDev/demoSpring/master/images/read.jpg)
 
 ** Imagen demostrativa de UPDATE **
 
-![Imagen de muestra, crear trabajador en spring](https://www.dropbox.com/s/bfp0h1r926db3ci/update.jpg?dl=0)
+![Imagen de muestra, crear trabajador en spring](https://raw.githubusercontent.com/OneSevenDev/demoSpring/master/images/update.jpg)
 
 ** Imagen demostrativa de DELETE **
 
-![Imagen de muestra, crear trabajador en spring](https://www.dropbox.com/s/2c576793t4yldmr/delete.jpg?dl=0)
+![Imagen de muestra, crear trabajador en spring](https://raw.githubusercontent.com/OneSevenDev/demoSpring/master/images/delete.jpg)
 
 * Orientación educativa - Saludos *
