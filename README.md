@@ -15,15 +15,19 @@ link: [Script de la base de datos](https://github.com/OneSevenDev/demoSpring/blo
 ### Imagenes demostrativas del CRUD en Spring MVC
 
 ** Imagen demostrativa de CREATE **
-![Imagen de muestra, crear trabajador en spring](https://drive.google.com/open?id=11gRPN_lH2X_ZaaryjInNMQFyxmBIfkitW2p7ymkHq1Y)
+
+![Imagen de muestra, crear trabajador en spring](https://www.dropbox.com/s/uh6e4zjdvlhpbzu/create.jpg?dl=0)
 
 ** Imagen demostrativa de READ **
-![Imagen de muestra, crear trabajador en spring](https://drive.google.com/open?id=1459oOrIl75lH8i1k9InOLHHNEKqpj57-iqop6crsWbM)
+
+![Imagen de muestra, crear trabajador en spring](https://www.dropbox.com/s/3i4eu9cgya1zm04/read.jpg?dl=0)
 
 ** Imagen demostrativa de UPDATE **
-![Imagen de muestra, crear trabajador en spring](https://drive.google.com/open?id=16YJnWnoMOevmRYldxCV5E_A0Y4lDNK10ylOMj05dvQs)
+
+![Imagen de muestra, crear trabajador en spring](https://www.dropbox.com/s/bfp0h1r926db3ci/update.jpg?dl=0)
 
 ** Imagen demostrativa de DELETE **
-![Imagen de muestra, crear trabajador en spring](https://drive.google.com/open?id=1N-WooLXG0cL3maMDXi9_nSIpY5vzZKhYNRZHGUbYH_A)
 
-* Orientación educativa - Saludos*
+![Imagen de muestra, crear trabajador en spring](https://www.dropbox.com/s/2c576793t4yldmr/delete.jpg?dl=0)
+
+* Orientación educativa - Saludos *
